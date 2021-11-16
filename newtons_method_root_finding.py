@@ -4,9 +4,10 @@ Newton's method
 Author: Daniel Homola
 Licence: BSD 3-clause
 """
-
+import numpy as np
 from scipy.optimize import newton
-from sklearn.utils.testing import assert_almost_equal
+# from sklearn.utils.testing import assert_almost_equal
+# from sklearn.utils.
 
 def f(x):
     return 6*x**5-5*x**4-4*x**3+3*x**2
@@ -22,16 +23,17 @@ def newtons_method(f, df, x0, e, print_res=False):
         x0 = x0 - f(x0)/df(x0)
         delta = dx(f, x0)
     if print_res:
-        print 'Root is at: ', x0
-        print 'f(x) at root is: ', f(x0)
+        print('Root is at: ', x0)
+        print('f(x) at root is: ', f(x0))
     return x0
 
 def test_with_scipy(f, df, x0s, e):
     for x0 in x0s:
         my_newton = newtons_method(f, df, x0, e)
         scipy_newton = newton(f, x0, df, tol=e)
-        assert_almost_equal(my_newton, scipy_newton, decimal=5)
-        print 'Tests passed.'
+        # assert_almost_equal(my_newton, scipy_newton, decimal=5)
+        np.testing.assert_almost_equal(my_newton, scipy_newton, decimal=5)
+        print('Tests passed.')
 
 if __name__ == '__main__':
     # run test

@@ -24,7 +24,7 @@ def sd(alpha=0.0002):
     Steepest Descent - 1st order optimization
     :return:
     """
-    print "STEEPEST DESCENT: start"
+    print("STEEPEST DESCENT: start")
     # gradient
     g = [diff(obj, i) for i in m]
     # Initialize xs
@@ -40,11 +40,11 @@ def sd(alpha=0.0002):
         xs.append(xs[iter_s] - np.dot(alpha, gs))
         # print xs[-1]
         iter_s += 1
-        if iter_s > 10000:
+        if iter_s > 100:
             break
-    print "STEEPEST DESCENT: result distance:", np.linalg.norm(xs[-1] - x_result)
+    print("STEEPEST DESCENT: result distance: %.5e \t iterationNum %d " % (np.linalg.norm(xs[-1] - x_result), iter_s))
     xs = np.array(xs)
-    plt.plot(xs[:, 0], xs[:, 1], 'g-o')
+    plt.plot(xs[:, 0], xs[:, 1], 'g-o', label='linear')
 
 
 def nm():
@@ -52,28 +52,30 @@ def nm():
     Newton's method - 2nd order optimization
     :return:
     """
-    print "NEWTON METHOD: start"
+    print("NEWTON METHOD: start")
     # gradient
     g = [diff(obj, i) for i in m]
     # Hessian matrix
     H = Matrix([[diff(g[j], m[i]) for i in range(len(m))] for j in range(len(g))])
     H_inv = H.inv()
 
-    xn = [[0, 0]]  # Newton method result global for comparison
-    xn[0] = x_start
+    xn = [Matrix([[0], [0]])]  # Newton method result global for comparison
+    xn[0] = Matrix([[x_start[0]], [x_start[1]]])
 
     iter_n = 0
-    while np.linalg.norm(xn[-1] - x_result) > target_precision:
+    while np.linalg.norm(np.array([xn[-1][0, 0], xn[-1][1, 0]], dtype=float) - x_result) > target_precision:
         # print "NEWTON METHOD: distance:", np.linalg.norm(xn[-1] - x_result)
         gn = Matrix(dfdx(xn[iter_n], g))
         delta_xn = -H_inv * gn
         delta_xn = delta_xn.subs(m[0], xn[iter_n][0]).subs(m[1], xn[iter_n][1])
         xn.append(Matrix(xn[iter_n]) + delta_xn)
         iter_n += 1
-    print "NEWTON METHOD: result distance:", np.linalg.norm(xn[-1] - x_result)
+    print("NEWTON METHOD: result distance: %.5e \t iterationNum: %d" %
+          (np.linalg.norm(np.array([xn[-1][0, 0], xn[-1][1, 0]], dtype=float) - x_result), iter_n))
 
     xn = np.array(xn)
-    plt.plot(xn[:, 0], xn[:, 1], 'k-o')
+    plt.plot(xn[:, 0], xn[:, 1], 'k-o', label='Quadratic')
+
 
 if __name__ == '__main__':
     ####################
@@ -107,7 +109,9 @@ if __name__ == '__main__':
     plt.ylabel('x2')
     nm()
     sd(alpha=0.05)
-    plt.show()
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig('Comparation_1.png', dpi=200)
 
     #####################
     # Rosenbrock function
@@ -138,8 +142,7 @@ if __name__ == '__main__':
     plt.ylabel('x2')
     nm()
     sd(alpha=0.0002)
-    plt.show()
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig('Comparation_2.png', dpi=200)
 
-    # import timeit
-    # print(timeit.timeit("nm()", setup="from __main__ import nm", number=10))
-    # print(timeit.timeit("sd()", setup="from __main__ import sd", number=10))

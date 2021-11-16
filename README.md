@@ -24,3 +24,9 @@ Just run `python name_of_file` in terminal and it will compile.
 ## Credits
 
 The credits for this code go to [Dsalaj](https://github.com/dsalaj) and [Dhomola](https://gist.github.com/danielhomola). I've merely created a wrapper to get people started.
+
+## Comparation
+
+|Function 1| Function 2|
+|---|---|
+|![](./Comparation_1.png) | ![](./Comparation_2.png) |
