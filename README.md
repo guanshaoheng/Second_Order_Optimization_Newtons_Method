@@ -27,6 +27,17 @@ The credits for this code go to [Dsalaj](https://github.com/dsalaj) and [Dhomola
 
 ## Comparation
 
+```angular2html
+NEWTON METHOD: start
+NEWTON METHOD: result distance: 8.88178e-16 	 iterationNum: 1
+STEEPEST DESCENT: start
+STEEPEST DESCENT: result distance: 2.96903e-01 	 iterationNum 27 
+NEWTON METHOD: start
+NEWTON METHOD: result distance: 3.16345e-03 	 iterationNum: 3
+STEEPEST DESCENT: start
+STEEPEST DESCENT: result distance: 1.44865e+00 	 iterationNum 101 
+```
+
 |Function 1| Function 2|
 |---|---|
 |![](./Comparation_1.png) | ![](./Comparation_2.png) |
