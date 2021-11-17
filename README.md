@@ -41,3 +41,9 @@ STEEPEST DESCENT: result distance: 1.44865e+00 	 iterationNum 101
 |Function 1| Function 2|
 |---|---|
 |![](./Comparation_1.png) | ![](./Comparation_2.png) |
+
+## Conclusion 
+The Steepest Descent method performs poor while approaching the object, since the gradient value is very small which will contribute less and less to the optimization process.
+
+The **Newtown Method** uses the gradient and the curvature, the curvature can be used to rescale
+the optimization step (the step size is inversely proportional to curvature).
